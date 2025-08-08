@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="Styles/HomeCSS.css">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+</head>
+
+
+
+<body>
+<div class="main">
+
+    <div class="bar">
+        <div class="logo">
+            <a href="Home.html"><img src="Images/logo.png"></a>
+        </div>
+
+        <div class="menu">
+            <a style="color: #FC4202" href="Home.html">Home</a>
+            <a href="Menu.html">Menu</a>
+            <a href="Home.html">About us</a>
+            <a href="News.html">News</a>
+            <a href="ContactUs.html">Contact us</a>
+        </div>
+
+        <div class="icons">
+            <a class="fas fa-shopping-cart"></a>
+            <a class="fas fa-user"></a>
+        </div>
+    </div>
+
+    <!-- Image and welcome text container -->
+    <div class="welcome-section">
+        <div class="welcome-text">
+            <h1>Welcome to Our Restaurant</h1>
+            <p STYLE="color: black"> <b>Delicious moments  wait you</b></p>
+        </div>
+        <div class="welcome-image">
+            <img src="Images/pizza_cheese.webp" class="slide show" id="slide1" alt="Pizza" width="900" height="500">
+            <img src="Images/burger_fries.webp" class="slide" id="slide2" alt="Burger" width="900" height="500">
+            <img src="Images/RR.webp" class="slide" id="slide3" alt="chicken" width="900" height="500">
+
+        </div>
+    </div>
+
+
+    <!-- Best Dish Section -->
+    <div class="best-dish">
+        <img src="Images/BestDish.jpg" alt="Best Dish" class="best-dish-img" width="200" height="300">
+        <div class="best-dish-text">
+            <h2>Best Dish of the Day</h2>
+            <p>Hamburger & Cheese with Pickles</p>
+            <button class="add-to-cart">₪35 - Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>Testimonials <br> They Say About Us</h2>
+        <div class="testimonial-list">
+            <div class="testimonial">
+                <div class="avatar male"><i class="fas fa-user"></i></div>
+                <h3>Ahmad</h3>
+                <p>"The pizza here is amazing — crispy crust and fresh toppings every time!"</p>
+            </div>
+            <div class="testimonial">
+                <div class="avatar male"><i class="fas fa-user"></i></div>
+                <h3>Ali</h3>
+                <p>"I love the fast service and friendly staff. The burgers are my favorite!"</p>
+            </div>
+            <div class="testimonial">
+                <div class="avatar female"><i class="fas fa-user-circle"></i></div>
+                <h3>Rhaf</h3>
+                <p>"Great place for quick meals that never compromise on taste."</p>
+            </div>
+        </div>
+    </section>
+
+    <pre>
+
+    </pre>
+
+
+
+<pre>
+
+</pre>
+
+
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <h2>Why Choose Us?</h2>
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-star"></i>
+                <h3>Top Quality</h3>
+                <p>We use the freshest ingredients in every dish.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Fast Delivery</h3>
+                <p>Your meal delivered hot and on time.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-heart"></i>
+                <h3>Customer Love</h3>
+                <p>People keep coming back — and they tell their friends.</p>
+            </div>
+        </div>
+    </section>
+
+    <pre>
+    </pre>
+
+
+<pre>
+</pre>
+
+    <!-- About Restaurant Section -->
+    <div class="about-restaurant" id="about">
+        <div class="about-icon">
+            <i class="fas fa-utensils"></i>
+        </div>
+        <div class="about-content">
+            <h2>About Our Restaurant</h2>
+            <p><b>We are a fast-food kitchen serving tasty pizzas, burgers, fries, and more. Our chefs use fresh ingredients to make every meal delicious. Whether you eat here or take your food home, we deliver fast, great flavors, and a happy experience every time.</b></p>
+        </div>
+    </div>
+    <!-- Red bottom line -->
+    <hr class="about-line">
+<pre>
+
+
+
+</pre>
+
+
+    <footer class="extra-footer">
+        <div class="footer-container">
+            <div class="footer-item">
+                <i class="fas fa-phone-alt"></i>
+                <h4>Call Us</h4>
+                <p>0598911096</p>
+            </div>
+            <div class="footer-item">
+                <i class="fas fa-envelope"></i>
+                <h4>Email</h4>
+                <p>contact@yourrestaurant.com</p>
+            </div>
+            <div class="footer-item">
+                <i class="fas fa-clock"></i>
+                <h4>Opening Hours</h4>
+                <p>Mon-Sat: 10:00 AM - 10:00 PM</p>
+            </div>
+            <div class="footer-item social">
+                <h4>Follow Us</h4>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Back to top arrow -->
+    <a href="#top" class="toparrow">
+        <img src="Images/TopArrow.png" width="50px" style="color: black">
+    </a>
+
+</div>
+<script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    setInterval(() => {
+        slides[current].classList.remove('show');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('show');
+    }, 3000);
+</script>
+</body>
+</html>
