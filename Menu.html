@@ -5,6 +5,7 @@
   <title>Restaurant News</title>
   <link rel="stylesheet" href="Styles/MenuCSS.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
   <script src="java/Menu.js"></script>
@@ -25,7 +26,7 @@
     <div class="menu">
       <a href="Home.html">Home</a>
       <a style="color: #FC4202" href="Menu.html">Menu</a>
-      <a href="Home.html">About us</a>
+      <a href="AboutUs.html">About us</a>
       <a href="News.html">News</a>
       <a href="ContactUs.html">Contact us</a>
     </div>
@@ -45,227 +46,214 @@
   </div>
 
   <div class="menu-section">
+    <!-- PIZZA SECTION -->
     <div class="menu-container-pizza">
       <div class="menu-container-header">
         <h1>Pizza</h1>
       </div>
       <div class="menu-container">
-        <div class="menu-card">
-          <img src="Images/pizza1.jpg">
-          <h2>Margherita Pizza</h2>
-          <p>Classic blend of tomato, mozzarella, and fresh basil on a crisp crust.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 67.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pizza1.jpg">
+              <h2>Margherita Pizza</h2>
+              <p>Classic blend of tomato, mozzarella, and fresh basil on a crisp crust.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 67.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Our Margherita Pizza brings you the authentic taste of Naples with premium San Marzano tomatoes, creamy mozzarella di bufala, hand-picked basil, and a wood-fired crispy crust. A timeless favorite for all pizza lovers.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/pizza2.jpg">
-          <h2>Mercy Margarita</h2>
-          <p>A spicy twist with chili flakes, garlic oil, and sun-dried tomatoes.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 75.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pizza2.jpg">
+              <h2>Mercy Margarita</h2>
+              <p>A spicy twist with chili flakes, garlic oil, and sun-dried tomatoes.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 75.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Mercy Margarita delivers a fiery kick with a bold combination of chili flakes, garlic-infused oil, and sweet sun-dried tomatoes layered over our signature tomato base. Perfect for spice lovers craving extra heat and flavor.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/pizza3.jpg">
-          <h2>Napoletana</h2>
-          <p>Bold flavors with anchovies, olives, and capers on a soft base.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 49.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pizza3.jpg">
+              <h2>Napoletana</h2>
+              <p>Bold flavors with anchovies, olives, and capers on a soft base.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 49.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>The Napoletana is a savory classic packed with Mediterranean flavor—anchovies, kalamata olives, and capers, all layered on a hand-stretched soft crust with rich tomato sauce. A taste of southern Italy in every bite.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/pizza4.jpg">
-          <h2>Napoletana</h2>
-          <p>Stuffed folded pizza with cheese, sauce, and savory fillings.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 29.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pizza4.jpg">
+              <h2>Calzone</h2>
+              <p>Stuffed folded pizza with cheese, sauce, and savory fillings.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>This golden-baked Calzone is loaded with mozzarella, marinara sauce, and your choice of meats or vegetables, all wrapped in our house dough. A handheld pizza delight bursting with flavor in every bite.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-
+    <!-- PASTA SECTION -->
     <div class="menu-container-pasta">
       <div class="menu-container-header">
         <h1>Pasta</h1>
       </div>
       <div class="menu-container">
-        <div class="menu-card">
-          <img src="Images/pasta1.jpg">
-          <h2>Lasagna</h2>
-          <p>Layered pasta with meat, béchamel, and melted cheese.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 25.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pasta1.jpg">
+              <h2>Lasagna</h2>
+              <p>Layered pasta with meat, béchamel, and melted cheese.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 25.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Rich and comforting, our traditional Lasagna features layers of pasta sheets, slow-cooked meat sauce, creamy béchamel, and golden melted cheese, baked to perfection for a hearty Italian classic.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/pasta2.jpg">
-          <h2>Spaghetti Carbonara</h2>
-          <p>Creamy sauce with eggs, cheese, and crispy pancetta.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 21.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pasta2.jpg">
+              <h2>Spaghetti Carbonara</h2>
+              <p>Creamy sauce with eggs, cheese, and crispy pancetta.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 21.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>This Roman favorite is made the traditional way—no cream! Just al dente spaghetti tossed in a velvety mix of eggs, Parmesan cheese, black pepper, and crispy pancetta for a rich, authentic flavor.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/pasta3.jpg">
-          <h2>Spaghetti all’Amatriciana</h2>
-          <p>Tomato sauce with pancetta and a touch of chili.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 23.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pasta3.jpg">
+              <h2>Spaghetti all’Amatriciana</h2>
+              <p>Tomato sauce with pancetta and a touch of chili.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 23.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Originating from Amatrice, this dish combines a zesty tomato base with rendered pancetta, chili flakes, and grated Pecorino Romano for a slightly spicy and deeply satisfying pasta experience.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/pasta4.png">
-          <h2>Pesto Pasta</h2>
-          <p>Pasta tossed in fresh basil pesto with garlic and pine nuts.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 29.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pasta4.png">
+              <h2>Pesto Pasta</h2>
+              <p>Pasta tossed in fresh basil pesto with garlic and pine nuts.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>A bright and fragrant dish made with freshly blended basil pesto, garlic, parmesan, and toasted pine nuts tossed over perfectly cooked pasta. Light, flavorful, and irresistibly fresh.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-
+    <!-- BURGER SECTION -->
     <div class="menu-container-burger">
       <div class="menu-container-header">
         <h1>Burger</h1>
       </div>
       <div class="menu-container">
-        <div class="menu-card">
-          <img src="Images/burger1.png">
-          <h2>White Mushroom Burger</h2>
-          <p>Grilled patty topped with creamy white mushrooms.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 29.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/burger1.png">
+              <h2>White Mushroom Burger</h2>
+              <p>Grilled patty topped with creamy white mushrooms.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Our White Mushroom Burger features a juicy beef patty topped with sautéed white mushrooms in a creamy garlic sauce, served on a toasted bun with melted Swiss cheese for a gourmet touch.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/burger2.jpg">
-          <h2>Cheese Royale Burger</h2>
-          <p>Double cheese, thick beef patty, and royal flavor.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 24.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/burger2.jpg">
+              <h2>Cheese Royale Burger</h2>
+              <p>Double cheese, thick beef patty, and royal flavor.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 24.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Experience royalty in every bite with the Cheese Royale Burger—two layers of rich cheese, a thick flame-grilled beef patty, crisp lettuce, tomato, and our signature sauce all in a golden brioche bun.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/burger3.png">
-          <h2>Caramelized Burger</h2>
-          <p>Juicy beef with caramelized onions and melted cheese.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 32.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/burger3.png">
+              <h2>Caramelized Burger</h2>
+              <p>Juicy beef with caramelized onions and melted cheese.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 32.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>This gourmet burger is stacked with sweet caramelized onions, gooey cheese, and a thick juicy patty grilled to perfection. Finished with tangy sauce and crisp greens for balance and flavor.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="Images/burger4.png">
-          <h2>Crispy Cheese Burger</h2>
-          <p>Crunchy fried cheese over a sizzling beef patty.</p>
-          <p style="color:orangered; text-align: center; font-size: 25px" >₪ 27.99</p>
-          <button class="read-more-btn">Add To Cart</button>
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/burger4.png">
+              <h2>Crispy Cheese Burger</h2>
+              <p>Crunchy fried cheese over a sizzling beef patty.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 27.99</p>
+              <button class="read-more-btn">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>A satisfying crunch meets cheesy goodness in this burger. A thick, crispy-fried cheese slice rests atop a sizzling beef patty with classic toppings. Crispy outside, melty inside—just the way it should be.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
 </div>
-<!--<pre>-->
 
-
-
-<!--</pre>-->
-
-
-
-
-<!--<div class="testimonials-section">-->
-<!--  <h2>💬 What Our Customers Say</h2>-->
-<!--  <div class="testimonial-slider">-->
-<!--    <div class="testimonial active">-->
-<!--      <p>"The spicy burger is a flavor bomb! Definitely coming back!"</p>-->
-<!--      <h4>— Sarah L.</h4>-->
-<!--    </div>-->
-<!--    <div class="testimonial">-->
-<!--      <p>"Amazing atmosphere on Fridays with live music. Loved it!"</p>-->
-<!--      <h4>— Omar K.</h4>-->
-<!--    </div>-->
-<!--    <div class="testimonial">-->
-<!--      <p>"The summer combo was affordable and tasty. Highly recommended!"</p>-->
-<!--      <h4>— Dina M.</h4>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="testimonial-nav">-->
-<!--    <span class="dot active"></span>-->
-<!--    <span class="dot"></span>-->
-<!--    <span class="dot"></span>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div class="chef-spotlight-section">-->
-<!--  <h2>👨‍🍳 Meet Our Chefs</h2>-->
-<!--  <div class="chef-cards-container">-->
-
-<!--    <div class="chef-card" onclick="flipCard(this)">-->
-<!--      <div class="card-inner">-->
-<!--        <div class="card-front">-->
-<!--          <img src="Images/Boy.jpg" alt="Chef 1">-->
-<!--          <h3>Chef Khaled</h3>-->
-<!--          <p>Expert in Grill & Meats</p>-->
-<!--        </div>-->
-<!--        <div class="card-back">-->
-<!--          <h3>Signature Dish</h3>-->
-<!--          <p>Smoky BBQ Ribs served with seasoned fries and coleslaw.</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="chef-card" onclick="flipCard(this)">-->
-<!--      <div class="card-inner">-->
-<!--        <div class="card-front">-->
-<!--          <img src="Images/gril.jpg" alt="Chef 2">-->
-<!--          <h3>Chef Layla</h3>-->
-<!--          <p>Lady of Burgers</p>-->
-<!--        </div>-->
-<!--        <div class="card-back">-->
-<!--          <h3>Signature Dish</h3>-->
-<!--          <p>Grilled meat sandwich in American style with melted cheese and special sauce-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="chef-card" onclick="flipCard(this)">-->
-<!--      <div class="card-inner">-->
-<!--        <div class="card-front">-->
-<!--          <img src="Images/boy2.jpg.webp" alt="Chef 3" class="large-chef-img">-->
-<!--          <h3>Chef Youssef</h3>-->
-<!--          <p>Seafood Specialist</p>-->
-<!--        </div>-->
-<!--        <div class="card-back">-->
-<!--          <h3>Signature Dish</h3>-->
-<!--          <p>Grilled salmon fillet with lemon butter sauce and vegetables.</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-
-<!--  </div>-->
-<!--</div>-->
-
-
-
-<!--<br>-->
 <pre>
 
 

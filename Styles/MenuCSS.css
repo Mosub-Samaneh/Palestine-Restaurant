@@ -12,7 +12,7 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 15px 50px;
+    padding: 10px 50px;
     background-color: #000;
     flex-wrap: wrap;
     position: fixed;
@@ -24,8 +24,7 @@ body{
 
 
 .logo img{
-    width: 150px;
-    height: 50px;
+    width: 130px;
 }
 
 .menu {
@@ -35,18 +34,17 @@ body{
 }
 
 .menu a{
-    /*margin-left: 0px;*/
     color: white;
-    font-size: 21px;
+    font-size: 16px;
     text-decoration: none;
-    font-family: Arial, serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     transition: 0.5s ease-in-out;
 }
 
 .menu a:hover{
     color: #FC4202;
-    font-size: 25px;
+    font-size: 19px;
 }
 
 .icons{
@@ -100,29 +98,23 @@ html {
 
 
 
+.menu-container-pizza,
+.menu-container-pasta,
+.menu-container-burger {
+    padding: 100px 10px;
+}
 
-.menu-container-pizza{
+.menu-container-pizza {
     background-image: url(../Images/pizzabackground.jpg);
-    background-size: cover;
-    height: auto;
-    padding: 100px 10px;
 }
-
-.menu-container-pasta{
+.menu-container-pasta {
     background-image: url(../Images/pastabackground.jpg);
-    background-size: cover;
-    height: auto;
-    padding: 100px 10px;
 }
-
-.menu-container-burger{
+.menu-container-burger {
     background-image: url(../Images/burgerbackground.jpg);
-    background-size: cover;
-    height: auto;
-    padding: 100px 10px;
 }
 
-.menu-container-header{
+.menu-container-header {
     text-align: center;
     font-family: 'Caveat', cursive;
     color: orangered;
@@ -142,18 +134,15 @@ html {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 300px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.menu-card:hover {
-    transform: translateY(-5px);
+    height: 550px;
+    cursor: pointer;
+    perspective: 1000px;
+    position: relative;
 }
 
 .menu-card img {
     width: 100%;
     height: auto;
-    /*object-fit: cover;*/
 }
 
 .menu-card h2 {
@@ -183,102 +172,6 @@ html {
     background-color: #d6521d;
 }
 
-
-
-
-
-.testimonials-section {
-    background: #fefefe;
-    padding: 50px 20px;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    margin: 50px auto;
-    max-width: 800px;
-    border-radius: 20px;
-}
-
-.testimonials-section h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: #d32f2f;
-}
-
-.testimonial-slider {
-    position: relative;
-    overflow: hidden;
-    height: 150px;
-}
-
-.testimonial {
-    display: none;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-.testimonial.active {
-    display: block;
-    animation: fade 1s ease-in-out;
-}
-
-.testimonial h4 {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #555;
-}
-
-.testimonial-nav {
-    margin-top: 20px;
-}
-
-.testimonial-nav .dot {
-    height: 12px;
-    width: 12px;
-    margin: 0 6px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.testimonial-nav .dot.active {
-    background-color: #d32f2f;
-}
-
-@keyframes fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-
-
-.chef-spotlight-section {
-    text-align: center;
-    padding: 60px 20px;
-    background-color: #fff8f0;
-}
-
-.chef-spotlight-section h2 {
-    font-size: 32px;
-    color: #c0392b;
-    margin-bottom: 40px;
-}
-
-.chef-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 50px; /* spacing between cards */
-    margin-top: 30px;
-}
-.chef-card {
-    width: 280px;
-    height: 380px;
-    perspective: 1000px;
-    cursor: pointer;
-}
-
-
 .card-inner {
     width: 100%;
     height: 100%;
@@ -287,59 +180,46 @@ html {
     transition: transform 0.8s;
 }
 
-.chef-card.flip .card-inner {
+.menu-card.flip .card-inner {
     transform: rotateY(180deg);
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    top: 0;
+    left: 0;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-/* Normal chef image */
-.card-front img {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
+.card-front {
+    background: white;
 }
 
 .card-back {
-    transform: rotateY(180deg);
     background-color: #fef5e7;
     color: #6e2c00;
     text-align: center;
+    padding: 20px;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto; /* scroll if content too long */
 }
 
-.card-back button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #e67e22;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.menu-card.flip .card-front {
+    transform: rotateY(180deg);
 }
 
-.card-back button:hover {
-    background-color: #ca6f1e;
-}
-.card-front img.large-chef-img {
-    width: 180px;
-    height: 180px;
-}
+
+
+
+
 
 
 
