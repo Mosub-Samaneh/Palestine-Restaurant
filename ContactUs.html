@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="Styles/CSSforContactUs.css">
+    <script src="java/ContactUs.js"></script>
     <title>Title</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
@@ -41,10 +42,28 @@
         </div>
 
         <div class="icons">
-            <a class="fas fa-shopping-cart"></a>
+            <a class="fas fa-shopping-cart" onclick="showCartTab()"><span id="cartNumber">0</span></a>
             <a class="fas fa-user"></a>
         </div>
     </div>
+
+
+
+
+
+    <div class="cartTab" id="cartTab">
+        <h1>Shopping Cart</h1>
+        <div class="cartContent">
+            <div class="listCart">
+
+            </div>
+        </div>
+        <div class="btn">
+            <button class="close" onclick="showCartTab()">Close</button>
+            <button class="checkOut">Checkout</button>
+        </div>
+    </div>
+
 </div>
 
 <div class="contact-section">

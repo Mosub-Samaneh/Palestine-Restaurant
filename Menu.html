@@ -32,10 +32,28 @@
     </div>
 
     <div class="icons">
-      <a class="fas fa-shopping-cart"></a>
+      <a class="fas fa-shopping-cart" onclick="showCartTab()"><span id="cartNumber">0</span></a>
       <a class="fas fa-user"></a>
     </div>
   </div>
+
+
+
+
+
+  <div class="cartTab" id="cartTab">
+    <h1>Shopping Cart</h1>
+    <div class="cartContent">
+      <div class="listCart">
+
+      </div>
+    </div>
+    <div class="btn">
+      <button class="close" onclick="showCartTab()">Close</button>
+      <button class="checkOut">Checkout</button>
+    </div>
+  </div>
+
 
 
 
@@ -59,7 +77,7 @@
               <h2>Margherita Pizza</h2>
               <p>Classic blend of tomato, mozzarella, and fresh basil on a crisp crust.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 67.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Margherita Pizza', 67.99, 'Images/pizza1.jpg', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>Our Margherita Pizza brings you the authentic taste of Naples with premium San Marzano tomatoes, creamy mozzarella di bufala, hand-picked basil, and a wood-fired crispy crust. A timeless favorite for all pizza lovers.</p>
@@ -74,7 +92,7 @@
               <h2>Mercy Margarita</h2>
               <p>A spicy twist with chili flakes, garlic oil, and sun-dried tomatoes.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 75.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Mercy Margarita', 75.99, 'Images/pizza2.jpg', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>Mercy Margarita delivers a fiery kick with a bold combination of chili flakes, garlic-infused oil, and sweet sun-dried tomatoes layered over our signature tomato base. Perfect for spice lovers craving extra heat and flavor.</p>
@@ -89,7 +107,7 @@
               <h2>Napoletana</h2>
               <p>Bold flavors with anchovies, olives, and capers on a soft base.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 49.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Napoletana', 49.99, 'Images/pizza3.jpg', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>The Napoletana is a savory classic packed with Mediterranean flavor—anchovies, kalamata olives, and capers, all layered on a hand-stretched soft crust with rich tomato sauce. A taste of southern Italy in every bite.</p>
@@ -104,7 +122,7 @@
               <h2>Calzone</h2>
               <p>Stuffed folded pizza with cheese, sauce, and savory fillings.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Calzone', 29.99, 'Images/pizza4.jpg', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>This golden-baked Calzone is loaded with mozzarella, marinara sauce, and your choice of meats or vegetables, all wrapped in our house dough. A handheld pizza delight bursting with flavor in every bite.</p>
@@ -127,7 +145,7 @@
               <h2>Lasagna</h2>
               <p>Layered pasta with meat, béchamel, and melted cheese.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 25.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Lasagna', 25.99, 'Images/pasta1.jpg', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>Rich and comforting, our traditional Lasagna features layers of pasta sheets, slow-cooked meat sauce, creamy béchamel, and golden melted cheese, baked to perfection for a hearty Italian classic.</p>
@@ -142,7 +160,7 @@
               <h2>Spaghetti Carbonara</h2>
               <p>Creamy sauce with eggs, cheese, and crispy pancetta.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 21.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Spaghetti Carbonara', 21.99, 'Images/pasta2.jpg', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>This Roman favorite is made the traditional way—no cream! Just al dente spaghetti tossed in a velvety mix of eggs, Parmesan cheese, black pepper, and crispy pancetta for a rich, authentic flavor.</p>
@@ -157,7 +175,7 @@
               <h2>Spaghetti all’Amatriciana</h2>
               <p>Tomato sauce with pancetta and a touch of chili.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 23.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Spaghetti all’Amatriciana', 23.99, 'Images/pasta3.jpg', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>Originating from Amatrice, this dish combines a zesty tomato base with rendered pancetta, chili flakes, and grated Pecorino Romano for a slightly spicy and deeply satisfying pasta experience.</p>
@@ -172,7 +190,7 @@
               <h2>Pesto Pasta</h2>
               <p>Pasta tossed in fresh basil pesto with garlic and pine nuts.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Pesto Pasta', 29.99, 'Images/pasta4.png', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>A bright and fragrant dish made with freshly blended basil pesto, garlic, parmesan, and toasted pine nuts tossed over perfectly cooked pasta. Light, flavorful, and irresistibly fresh.</p>
@@ -195,7 +213,7 @@
               <h2>White Mushroom Burger</h2>
               <p>Grilled patty topped with creamy white mushrooms.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('White Mushroom Burger', 29.99, 'Images/burger1.png', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>Our White Mushroom Burger features a juicy beef patty topped with sautéed white mushrooms in a creamy garlic sauce, served on a toasted bun with melted Swiss cheese for a gourmet touch.</p>
@@ -210,7 +228,7 @@
               <h2>Cheese Royale Burger</h2>
               <p>Double cheese, thick beef patty, and royal flavor.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 24.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Cheese Royale Burger', 24.99, 'Images/burger2.jpg', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>Experience royalty in every bite with the Cheese Royale Burger—two layers of rich cheese, a thick flame-grilled beef patty, crisp lettuce, tomato, and our signature sauce all in a golden brioche bun.</p>
@@ -225,7 +243,7 @@
               <h2>Caramelized Burger</h2>
               <p>Juicy beef with caramelized onions and melted cheese.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 32.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Caramelized Burger', 32.99, 'Images/burger3.png', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>This gourmet burger is stacked with sweet caramelized onions, gooey cheese, and a thick juicy patty grilled to perfection. Finished with tangy sauce and crisp greens for balance and flavor.</p>
@@ -240,7 +258,7 @@
               <h2>Crispy Cheese Burger</h2>
               <p>Crunchy fried cheese over a sizzling beef patty.</p>
               <p style="color:orangered; text-align: center; font-size: 25px">₪ 27.99</p>
-              <button class="read-more-btn">Add To Cart</button>
+              <button class="read-more-btn" onclick="addToCart('Crispy Cheese Burger', 27.99, 'Images/burger4.png', event)">Add To Cart</button>
             </div>
             <div class="card-back">
               <p>A satisfying crunch meets cheesy goodness in this burger. A thick, crispy-fried cheese slice rests atop a sizzling beef patty with classic toppings. Crispy outside, melty inside—just the way it should be.</p>

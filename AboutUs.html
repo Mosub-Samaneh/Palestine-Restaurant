@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
-    <script src="java/Menu.js"></script>
+    <script src="java/AboutUs.js"></script>
 </head>
 
 
@@ -32,8 +32,25 @@
         </div>
 
         <div class="icons">
-            <a class="fas fa-shopping-cart"></a>
+            <a class="fas fa-shopping-cart" onclick="showCartTab()"><span id="cartNumber">0</span></a>
             <a class="fas fa-user"></a>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="cartTab" id="cartTab">
+        <h1>Shopping Cart</h1>
+        <div class="cartContent">
+            <div class="listCart">
+
+            </div>
+        </div>
+        <div class="btn">
+            <button class="close" onclick="showCartTab()">Close</button>
+            <button class="checkOut">Checkout</button>
         </div>
     </div>
 
