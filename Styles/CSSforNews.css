@@ -115,6 +115,12 @@ html {
     .cartTab{
         visibility: hidden;
     }
+    .bellTab{
+        visibility: hidden;
+    }
+    .profileTab{
+        visibility: hidden;
+    }
 }
 
 
@@ -130,12 +136,12 @@ html {
     background-color: #353432;
     position: fixed;
     top: 60px;
-    right: -500px;
+    right: -400px;
     bottom: 0;
     z-index: 999;
     display: flex;
     flex-direction: column;
-    transition: 0.5s;
+    transition: right 0.5s;
     padding: 0;
 }
 .cartTab h1{
@@ -170,6 +176,18 @@ html {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     cursor: pointer;
+}
+.cartTab .btn a{
+    width: 50%;
+    padding: 10px;
+    background-color: #FC4202;
+    color: white;
+    border: none;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
 }
 .listCart {
     overflow: auto;
@@ -212,6 +230,173 @@ html {
 .listCart .item:nth-child(even){
     background-color: #eee1;
 }
+
+
+
+
+
+
+
+
+.bellTab {
+    width: 400px;
+    position: fixed;
+    top: 60px;
+    right: -400px;
+    bottom: 0;
+    background-color: #353432;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: right 0.5s;
+}
+.bellTab h1{
+    color: orangered;
+    font-size: 50px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    margin-bottom: 10px;
+}
+.bellContent {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 70px); /* Adjust based on your h1 height */
+    overflow: hidden; /* Contains the list and buttons */
+}
+.bellTab .btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+.bellTab .btn button{
+    width: 100%;
+    padding: 10px;
+    background-color: #FC4202;
+    color: white;
+    border: none;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+.listBell {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+}
+
+.notification {
+    background: #222;
+    color: #fff;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.notification:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+}
+
+.notification .msg {
+    margin-bottom: 5px;
+}
+
+.notification .time {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.notification.pending {
+    border-left: 6px solid orange;
+    background: rgba(255,165,0,0.1);
+    color: orange;
+}
+
+.notification.ready {
+    border-left: 6px solid limegreen;
+    background: rgba(50,205,50,0.1);
+    color: limegreen;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.profileTab{
+    width: 370px;
+    height: 370px;
+    background-color: #353432;
+    position: fixed;
+    top: 60px;
+    right: -370px;
+    bottom: 0;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.5s;
+    padding: 0;
+}
+.profileTab h1{
+    color: orangered;
+    font-size: 50px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    margin-bottom: 10px;
+}
+.profileContent {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 70px); /* Adjust based on your h1 height */
+    overflow: hidden; /* Contains the list and buttons */
+}
+.profileTab .btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+.profileTab .btn button{
+    width: 50%;
+    padding: 10px;
+    background-color: #FC4202;
+    color: white;
+    border: none;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+.listProfile p {
+    color: white;
+    font-size: 18px;
+    margin: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+.listProfile strong {
+    color: #FC4202;
+}
+
+
+
+
 
 
 

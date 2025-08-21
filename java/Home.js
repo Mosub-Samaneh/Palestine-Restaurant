@@ -1,70 +1,43 @@
-function addToCart(name, price, imgSrc, e) {
-    e.stopPropagation(); // prevent flip card click
-
-    const cartList = document.querySelector('.listCart');
-    let existingItem = [...cartList.querySelectorAll('.item')].find(item => item.dataset.name === name);
-
-    if (existingItem) {
-        // Increase quantity if already exists
-        let quantityElem = existingItem.querySelector('#quantity');
-        let currentQuantity = parseInt(quantityElem.innerText);
-        quantityElem.innerText = currentQuantity + 1;
-
-        // Update price
-        let priceElem = existingItem.querySelector('.price');
-        let unitPrice = parseFloat(price); // Get the original price from parameters
-        priceElem.innerText = (unitPrice * (currentQuantity + 1)).toFixed(2);
-
-        // Update cart counter
-        let cartNumberElem = document.getElementById("cartNumber");
-        cartNumberElem.innerText = parseInt(cartNumberElem.innerText) + 1;
-    } else {
-        // Create new cart item
-        let item = document.createElement('div');
-        item.classList.add('item');
-        item.dataset.name = name;
-
-        item.innerHTML = `
-            <div class="item-img">
-                <img src="${imgSrc}" alt="">
-            </div>
-            <div class="name">${name}</div>
-            <div class="price" data-unit-price="${price}">${parseFloat(price).toFixed(2)}</div>
-            <div class="quantity">
-                <span class="minus" onclick="minusItem(this)"><</span>
-                <span id="quantity">1</span>
-                <span class="plus" onclick="plusItem(this)">></span>
-            </div>
-        `;
-        cartList.appendChild(item);
-
-        // Increase cart number
-        let cartNumberElem = document.getElementById("cartNumber");
-        cartNumberElem.innerText = parseInt(cartNumberElem.innerText) + 1;
-    }
-}
-
-
 function plusItem(btn) {
     const item = btn.closest('.item');
     const quantityElem = item.querySelector('#quantity');
     const priceElem = item.querySelector('.price');
-    const unitPrice = parseFloat(priceElem.dataset.unitPrice); // stored unit price
+    const unitPrice = parseFloat(priceElem.dataset.unitPrice);
+    const id = item.dataset.id;
+
+    fetch("PlusMinusCart.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        credentials: "include",
+        body: JSON.stringify({ id: id, action: "plus" })
+    });
 
     let quantity = parseInt(quantityElem.innerText) + 1;
     quantityElem.innerText = quantity;
-
     priceElem.innerText = (unitPrice * quantity).toFixed(2);
 
     let cartNumberElem = document.getElementById("cartNumber");
     cartNumberElem.innerText = parseInt(cartNumberElem.innerText) + 1;
+
+    const totalEl = document.getElementById('totalPrice');
+    const total = parseFloat(totalEl.innerText);
+    totalEl.innerText = (total + unitPrice).toFixed(2);
 }
+
 
 function minusItem(btn) {
     const item = btn.closest('.item');
     const quantityElem = item.querySelector('#quantity');
     const priceElem = item.querySelector('.price');
     const unitPrice = parseFloat(priceElem.dataset.unitPrice);
+    const id = item.dataset.id;
+
+    fetch("PlusMinusCart.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        credentials: "include",
+        body: JSON.stringify({ id: id, action: "minus" })
+    });
 
     let quantity = parseInt(quantityElem.innerText) - 1;
 
@@ -77,20 +50,80 @@ function minusItem(btn) {
 
     let cartNumberElem = document.getElementById("cartNumber");
     cartNumberElem.innerText = Math.max(0, parseInt(cartNumberElem.innerText) - 1);
+
+    const totalEl = document.getElementById('totalPrice');
+    const total = parseFloat(totalEl.innerText);
+    totalEl.innerText = (total - unitPrice).toFixed(2);
 }
 
 
 
 
-let shown = false;
-function showCartTab() {
-    let cart = document.getElementById("cartTab");
 
-    if (!shown) {
-        shown = true;
-        cart.style.transform = "translateX(500px)";
+let cartShown = false;
+let profileShown = false;
+let bellShown = false;
+
+function showCartTab() {
+    const cart = document.getElementById("cartTab");
+    const profile = document.getElementById("profileTab");
+    const bell = document.getElementById("bellTab");
+
+    // Always close others
+    profile.style.right = "-370px";
+    profileShown = false;
+    bell.style.right = "-400px";
+    bellShown = false;
+
+    if (!cartShown) {
+        cart.style.right = "0px";
+        cartShown = true;
     } else {
-        shown = false;
-        cart.style.transform = "translateX(-500px)";
+        cart.style.right = "-400px";
+        cartShown = false;
     }
+}
+
+function showBellTab() {
+    const cart = document.getElementById("cartTab");
+    const bell = document.getElementById("bellTab");
+    const profile = document.getElementById("profileTab");
+
+    // Always close others
+    profile.style.right = "-370px";
+    profileShown = false;
+    cart.style.right = "-400px";
+    cartShown = false;
+
+    if (!bellShown) {
+        bell.style.right = "0px";
+        bellShown = true;
+    } else {
+        bell.style.right = "-400px";
+        bellShown = false;
+    }
+}
+
+function showProfileTab() {
+    const profile = document.getElementById("profileTab");
+    const cart = document.getElementById("cartTab");
+    const bell = document.getElementById("bellTab");
+
+    // Always close others
+    cart.style.right = "-400px";
+    cartShown = false;
+    bell.style.right = "-400px";
+    bellShown = false;
+
+    if (!profileShown) {
+        profile.style.right = "0px";
+        profileShown = true;
+    } else {
+        profile.style.right = "-370px";
+        profileShown = false;
+    }
+}
+
+function logout() {
+    window.location.href = "logout.php";
 }

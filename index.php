@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arrow with Hover & Click Effects</title>
+    <style>
+        /* Container styles */
+        .demo-box {
+            border: 1px solid red;
+            padding: 20px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        /* Arrow container with hover effect */
+        .arrow-container {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+
+        /* Main arrow */
+        .main-arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        /* Hover arrow (drawing effect) */
+        .hover-arrow {
+            position: absolute;
+            left: 100%;
+            top: 0;
+            width: 0;
+            overflow: hidden;
+            transition: width 0.5s ease-out;
+        }
+
+        .hover-arrow svg path {
+            stroke-dasharray: 30;
+            stroke-dashoffset: 30;
+            transition: stroke-dashoffset 0.5s ease-out;
+        }
+
+        /* Hover effects */
+        .arrow-container:hover .main-arrow {
+            transform: translateX(-5px);
+        }
+
+        .arrow-container:hover .hover-arrow {
+            width: 50px;
+        }
+
+        .arrow-container:hover .hover-arrow svg path {
+            stroke-dashoffset: 0;
+        }
+
+        /* Hidden paragraph */
+        .hidden-content {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s ease;
+            margin-top: 10px;
+            border-left: 3px solid #ccc;
+            padding-left: 10px;
+        }
+
+        .show-content {
+            max-height: 200px;
+            opacity: 1;
+            padding: 10px;
+        }
+
+        /* Active state (when clicked) */
+        .active-arrow .main-arrow svg path {
+            stroke: #ff0000;
+            stroke-width: 2;
+        }
+    </style>
+</head>
+<body>
+<a href="Home.php">Go Home</a>
+<br>
+
+<div class="demo-box">
+    <div class="arrow-container" id="arrowButton">
+        <!-- Main arrow -->
+        <div class="main-arrow">
+            <svg width="50" height="50" viewBox="0 0 20 20">
+                <path d="M5,5 L15,10 L5,15" stroke="black" stroke-width="1.5" fill="none"/>
+            </svg>
+        </div>
+
+        <!-- Hover arrow -->
+        <div class="hover-arrow">
+            <svg width="50" height="50" viewBox="0 0 20 20">
+                <path d="M5,5 L15,10 L5,15" stroke="black" stroke-width="1.5" fill="none"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Hidden content -->
+    <div class="hidden-content" id="hiddenContent">
+        <p>This content appears when you click the arrow! The hover effect still works too.</p>
+    </div>
+</div>
+
+<script>
+    const arrowButton = document.getElementById('arrowButton');
+    const hiddenContent = document.getElementById('hiddenContent');
+    let isContentVisible = false;
+
+    arrowButton.addEventListener('click', function() {
+        isContentVisible = !isContentVisible;
+
+        if (isContentVisible) {
+            hiddenContent.classList.add('show-content');
+            arrowButton.classList.add('active-arrow');
+        } else {
+            hiddenContent.classList.remove('show-content');
+            arrowButton.classList.remove('active-arrow');
+        }
+    });
+</script>
+</body>
+</html>

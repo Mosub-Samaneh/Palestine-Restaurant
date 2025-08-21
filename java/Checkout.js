@@ -1,62 +1,36 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll(".read-more-btn");
-
-    buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const content = btn.nextElementSibling;
-            const isVisible = content.style.display === "block";
-
-            content.style.display = isVisible ? "none" : "block";
-            btn.textContent = isVisible ? "Read More" : "Read Less";
-        });
-    });
-});
+function confirmOrder(e) {
+    const name    = document.getElementById("customerName").value.trim();
+    const phone   = document.getElementById("customerPhone").value.trim();
+    const address = document.getElementById("customerAddress").value.trim();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value;
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    const testimonials = document.querySelectorAll(".testimonial");
-    const dots = document.querySelectorAll(".dot");
+    const namePattern    = /^[A-Za-z\s]+$/;
+    const phonePattern   = /^\d{10}$/;
 
-    let current = 0;
 
-    function showTestimonial(index) {
-        testimonials.forEach((testimonial, i) => {
-            testimonial.classList.toggle("active", i === index);
-            dots[i].classList.toggle("active", i === index);
-        });
+    if (!namePattern.test(name)) {
+        alert("Name must contain only letters and spaces.");
+        e.preventDefault();
+        return;
     }
 
-    dots.forEach((dot, i) => {
-        dot.addEventListener("click", () => {
-            current = i;
-            showTestimonial(current);
-        });
-    });
 
-    setInterval(() => {
-        current = (current + 1) % testimonials.length;
-        showTestimonial(current);
-    }, 5000); // Change testimonial every 5 seconds
-});
+    if (!phonePattern.test(phone)) {
+        alert("Phone number must be exactly 10 digits.");
+        e.preventDefault();
+        return;
+    }
 
 
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const chefCard = document.getElementById("chefCard");
-    chefCard.addEventListener("click", () => {
-        chefCard.classList.toggle("flip");
-    });
-});
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Optional: Add smooth scroll or other effects here
-});
-
-function flipCard(card) {
-    card.classList.toggle("flip");
+    alert(
+        `Order Confirmed!\n` +
+        `Type: ${orderType}\n` +
+        `Name: ${name}\n` +
+        `Phone: ${phone}\n` +
+        `Address: ${address}\n` +
+        `Total: $${totalCartPrice.toFixed(2)}`
+    );
 }
 
 
@@ -117,6 +91,7 @@ function minusItem(btn) {
     const total = parseFloat(totalEl.innerText);
     totalEl.innerText = (total - unitPrice).toFixed(2);
 }
+
 
 
 

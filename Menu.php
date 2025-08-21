@@ -1,0 +1,518 @@
+<?php
+session_start();
+if(isset($_SESSION['isMember'])){
+    if($_SESSION['isMember'] == 0){
+        header("Location: Login.php");
+    }
+}
+else{
+    header("Location: Login.php");
+}
+?>
+
+<?php
+if (!isset($_SESSION['isMember'])) {
+    header("Location: Login.php");
+    exit;
+}
+
+$customerId = $_SESSION['CustomerID'];
+
+$conn = new mysqli("localhost", "root", "", "projdb", 3306);
+
+
+$stmt = $conn->prepare("
+    SELECT i.ItemID, i.ItemName, i.Price, i.ImageURL, ci.Quantity
+    FROM carts c
+    JOIN cartitems ci ON c.CartID = ci.CartID
+    JOIN items i ON ci.ItemID = i.ItemID
+    WHERE c.CustomerID = ?
+");
+
+$stmt->bind_param("i", $customerId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$count = 0;
+?>
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Menu</title>
+    <link rel="stylesheet" href="Styles/MenuCSS.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+    <script src="java/Menu.js"></script>
+</head>
+
+
+<body>
+<div class="main">
+
+    <div class="bar">
+        <div class="logo">
+            <a href="Home.php"><img src="Images/logo.png" alt="Logo"></a>
+        </div>
+
+        <div class="menu">
+            <a href="Home.php">Home</a>
+            <a style="color: #FC4202" href="Menu.php">Menu</a>
+            <a href="AboutUs.php">About us</a>
+            <a href="News.php">News</a>
+            <a href="ContactUs.php">Contact us</a>
+        </div>
+
+        <div class="icons">
+            <a class="fas fa-shopping-cart" onclick="showCartTab()">
+                <span id="cartNumber"><?php // Span value from count belo ?></span>
+            </a>
+            <a class="fa-solid fa-bell" onclick="showBellTab()">
+                <span id="bellNumber">0</span>
+            </a>
+            <a class="fas fa-user" onclick="showProfileTab()"></a>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="cartTab" id="cartTab">
+        <h1>Shopping Cart</h1>
+        <div class="cartContent">
+            <div class="listCart">
+                <?php while ($row = $result->fetch_assoc()):
+                    $count += (int)$row['Quantity'];?>
+                    <div class="item" data-name="<?= htmlspecialchars($row['ItemName']) ?>" data-id="<?= (int)$row['ItemID'] ?>">
+                        <div class="item-img">
+                            <img src="<?= htmlspecialchars($row['ImageURL']) ?>" alt="">
+                        </div>
+                        <div class="name"><?= htmlspecialchars($row['ItemName']) ?></div>
+                        <div class="price" data-unit-price="<?= htmlspecialchars($row['Price']) ?>">
+                            <?= number_format($row['Price'] * $row['Quantity'], 2) ?>
+                        </div>
+                        <div class="quantity">
+                            <span class="minus" onclick="minusItem(this)"><</span>
+                            <span id="quantity"><?= (int)$row['Quantity'] ?></span>
+                            <span class="plus" onclick="plusItem(this)">></span>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+        </div>
+        <div class="btn">
+            <button class="close" onclick="showCartTab()">Close</button>
+            <button class="checkOut"><a href="Checkout.php">Checkout</a></button>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    document.getElementById('cartNumber').innerText = <?= $count ?>;
+</script>
+<?php
+$stmt->close();
+$conn->close();
+?>
+
+
+
+
+<div class="bellTab" id="bellTab">
+    <h1>Notifications</h1>
+    <div class="bellContent">
+        <div class="listBell"></div>
+    </div>
+    <div class="btn">
+        <button class="close" onclick="showBellTab()">Close</button>
+    </div>
+</div>
+
+<script>
+
+    function timeAgo(timestamp) {
+        const now = new Date();
+        const then = new Date(timestamp);
+        const seconds = Math.floor((now - then) / 1000);
+
+        if (seconds < 60) return `${seconds}s ago`;
+        const minutes = Math.floor(seconds / 60);
+        if (minutes < 60) return `${minutes}m ago`;
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return `${hours}h ago`;
+        const days = Math.floor(hours / 24);
+        return `${days}d ago`;
+    }
+
+    function loadNotifications() {
+        fetch("fetch_notifications.php")
+            .then(res => res.json())
+            .then(data => {
+                const list = document.querySelector("#bellTab .listBell");
+                const badge = document.getElementById("bellNumber");
+                list.innerHTML = "";
+
+                let unreadCount = 0;
+
+                data.forEach(n => {
+                    const div = document.createElement("div");
+                    div.className = "notification";
+
+                    const msg = document.createElement("div");
+                    msg.className = "msg";
+                    msg.innerText = n.Message;
+
+                    const time = document.createElement("div");
+                    time.className = "time";
+                    time.innerText = timeAgo(n.created_at);
+
+                    div.appendChild(msg);
+                    div.appendChild(time);
+
+                    if (n.Status === "Pending") {
+                        div.classList.add("pending");
+                        unreadCount++;
+                    } else if (n.Status === "Ready") {
+                        div.classList.add("ready");
+                        unreadCount++;
+                    }
+
+                    list.appendChild(div);
+                });
+
+
+                if (unreadCount > 0) {
+                    badge.style.display = "inline-block";
+                    badge.innerText = unreadCount;
+                } else {
+                    badge.style.display = "none";
+                }
+            });
+    }
+
+
+    // Refresh notifications every 3s
+    setInterval(() => {
+        // Update DB statuses (Pending → Ready, auto-delete old ones)
+        fetch("update_notifications.php").then(() => {
+            loadNotifications();
+        });
+    }, 3000);
+
+    // Initial load
+    loadNotifications();
+</script>
+
+
+
+
+
+<div class="profileTab" id="profileTab">
+    <h1>Profile</h1>
+    <div class="profileContent">
+        <div class="listProfile">
+            <?php
+            if (isset($_SESSION['isMember']) && $_SESSION['isMember'] == 1) {
+                echo "<p><strong>First Name:</strong> " . htmlspecialchars($_SESSION['FName']) . "</p>";
+                echo "<p><strong>Last Name:</strong> " . htmlspecialchars($_SESSION['LName']) . "</p>";
+                echo "<p><strong>Email:</strong> " . htmlspecialchars($_SESSION['Gmail']) . "</p>";
+            } else {
+                echo "<p>You are not logged in.</p>";
+            }
+            ?>
+        </div>
+    </div>
+    <div class="btn">
+        <button class="close" onclick="showProfileTab()">Close</button>
+        <button class="logout" onclick="logout()">Sign Out</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+  <div class="menu-header">
+    <h1>Our Menu</h1>
+  </div>
+
+  <div class="menu-section">
+    <!-- PIZZA SECTION -->
+    <div class="menu-container-pizza">
+      <div class="menu-container-header">
+        <h1>Pizza</h1>
+      </div>
+      <div class="menu-container">
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pizza1.jpg">
+              <h2>Margherita Pizza</h2>
+              <p>Classic blend of tomato, mozzarella, and fresh basil on a crisp crust.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 67.99</p>
+              <button class="read-more-btn" onclick="addToCart('Margherita Pizza', 67.99, 'Images/pizza1.jpg', event, 1)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Our Margherita Pizza brings you the authentic taste of Naples with premium San Marzano tomatoes, creamy mozzarella di bufala, hand-picked basil, and a wood-fired crispy crust. A timeless favorite for all pizza lovers.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pizza2.jpg">
+              <h2>Mercy Margarita</h2>
+              <p>A spicy twist with chili flakes, garlic oil, and sun-dried tomatoes.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 75.99</p>
+              <button class="read-more-btn" onclick="addToCart('Mercy Margarita', 75.99, 'Images/pizza2.jpg', event, 2)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Mercy Margarita delivers a fiery kick with a bold combination of chili flakes, garlic-infused oil, and sweet sun-dried tomatoes layered over our signature tomato base. Perfect for spice lovers craving extra heat and flavor.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pizza3.jpg">
+              <h2>Napoletana</h2>
+              <p>Bold flavors with anchovies, olives, and capers on a soft base.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 49.99</p>
+              <button class="read-more-btn" onclick="addToCart('Napoletana', 49.99, 'Images/pizza3.jpg', event, 3)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>The Napoletana is a savory classic packed with Mediterranean flavor—anchovies, kalamata olives, and capers, all layered on a hand-stretched soft crust with rich tomato sauce. A taste of southern Italy in every bite.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pizza4.jpg">
+              <h2>Calzone</h2>
+              <p>Stuffed folded pizza with cheese, sauce, and savory fillings.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
+              <button class="read-more-btn" onclick="addToCart('Calzone', 29.99, 'Images/pizza4.jpg', event, 4)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>This golden-baked Calzone is loaded with mozzarella, marinara sauce, and your choice of meats or vegetables, all wrapped in our house dough. A handheld pizza delight bursting with flavor in every bite.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASTA SECTION -->
+    <div class="menu-container-pasta">
+      <div class="menu-container-header">
+        <h1>Pasta</h1>
+      </div>
+      <div class="menu-container">
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pasta1.jpg">
+              <h2>Lasagna</h2>
+              <p>Layered pasta with meat, béchamel, and melted cheese.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 25.99</p>
+              <button class="read-more-btn" onclick="addToCart('Lasagna', 25.99, 'Images/pasta1.jpg', event, 5)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Rich and comforting, our traditional Lasagna features layers of pasta sheets, slow-cooked meat sauce, creamy béchamel, and golden melted cheese, baked to perfection for a hearty Italian classic.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pasta2.jpg">
+              <h2>Spaghetti Carbonara</h2>
+              <p>Creamy sauce with eggs, cheese, and crispy pancetta.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 21.99</p>
+              <button class="read-more-btn" onclick="addToCart('Spaghetti Carbonara', 21.99, 'Images/pasta2.jpg', event, 6)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>This Roman favorite is made the traditional way—no cream! Just al dente spaghetti tossed in a velvety mix of eggs, Parmesan cheese, black pepper, and crispy pancetta for a rich, authentic flavor.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pasta3.jpg">
+              <h2>Spaghetti all’Amatriciana</h2>
+              <p>Tomato sauce with pancetta and a touch of chili.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 23.99</p>
+              <button class="read-more-btn" onclick="addToCart('Spaghetti all’Amatriciana', 23.99, 'Images/pasta3.jpg', event, 7)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Originating from Amatrice, this dish combines a zesty tomato base with rendered pancetta, chili flakes, and grated Pecorino Romano for a slightly spicy and deeply satisfying pasta experience.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/pasta4.png">
+              <h2>Pesto Pasta</h2>
+              <p>Pasta tossed in fresh basil pesto with garlic and pine nuts.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
+              <button class="read-more-btn" onclick="addToCart('Pesto Pasta', 29.99, 'Images/pasta4.png', event, 8)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>A bright and fragrant dish made with freshly blended basil pesto, garlic, parmesan, and toasted pine nuts tossed over perfectly cooked pasta. Light, flavorful, and irresistibly fresh.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BURGER SECTION -->
+    <div class="menu-container-burger">
+      <div class="menu-container-header">
+        <h1>Burger</h1>
+      </div>
+      <div class="menu-container">
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/burger1.png">
+              <h2>White Mushroom Burger</h2>
+              <p>Grilled patty topped with creamy white mushrooms.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 29.99</p>
+              <button class="read-more-btn" onclick="addToCart('White Mushroom Burger', 29.99, 'Images/burger1.png', event, 9)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Our White Mushroom Burger features a juicy beef patty topped with sautéed white mushrooms in a creamy garlic sauce, served on a toasted bun with melted Swiss cheese for a gourmet touch.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/burger2.jpg">
+              <h2>Cheese Royale Burger</h2>
+              <p>Double cheese, thick beef patty, and royal flavor.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 24.99</p>
+              <button class="read-more-btn" onclick="addToCart('Cheese Royale Burger', 24.99, 'Images/burger2.jpg', event, 10)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>Experience royalty in every bite with the Cheese Royale Burger—two layers of rich cheese, a thick flame-grilled beef patty, crisp lettuce, tomato, and our signature sauce all in a golden brioche bun.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/burger3.png">
+              <h2>Caramelized Burger</h2>
+              <p>Juicy beef with caramelized onions and melted cheese.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 32.99</p>
+              <button class="read-more-btn" onclick="addToCart('Caramelized Burger', 32.99, 'Images/burger3.png', event, 11)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>This gourmet burger is stacked with sweet caramelized onions, gooey cheese, and a thick juicy patty grilled to perfection. Finished with tangy sauce and crisp greens for balance and flavor.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" onclick="flipCard(this)">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Images/burger4.png">
+              <h2>Crispy Cheese Burger</h2>
+              <p>Crunchy fried cheese over a sizzling beef patty.</p>
+              <p style="color:orangered; text-align: center; font-size: 25px">₪ 27.99</p>
+              <button class="read-more-btn" onclick="addToCart('Crispy Cheese Burger', 27.99, 'Images/burger4.png', event, 12)">Add To Cart</button>
+            </div>
+            <div class="card-back">
+              <p>A satisfying crunch meets cheesy goodness in this burger. A thick, crispy-fried cheese slice rests atop a sizzling beef patty with classic toppings. Crispy outside, melty inside—just the way it should be.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<pre>
+
+
+
+
+
+
+</pre>
+
+
+
+
+
+
+
+<footer class="extra-footer">
+  <div class="footer-container">
+    <div class="footer-item">
+      <i class="fas fa-phone-alt"></i>
+      <h4>Call Us</h4>
+      <p>0598911096</p>
+    </div>
+    <div class="footer-item">
+      <i class="fas fa-envelope"></i>
+      <h4>Email</h4>
+      <p>contact@yourrestaurant.com</p>
+    </div>
+    <div class="footer-item">
+      <i class="fas fa-clock"></i>
+      <h4>Opening Hours</h4>
+      <p>Mon-Sat: 10:00 AM - 10:00 PM</p>
+    </div>
+    <div class="footer-item social">
+      <h4>Follow Us</h4>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+<!-- Back to top arrow -->
+<a href="#top" class="toparrow">
+  <img src="Images/TopArrow.png" width="50px">
+</a>
+
+
+
+
+</body>
+</html>
